@@ -4,4 +4,10 @@
     <li><%= error.msg %></li>
     <% }); %>
 </ul>
+<% } %> <% if (locals.errorMessages && locals.errorMessages.length) { %>
+<ul>
+    <% locals.errorMessages.forEach(errorMessage => { %>
+    <li><%= errorMessage %></li>
+    <% }); %>
+</ul>
 <% } %>

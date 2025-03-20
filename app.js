@@ -5,15 +5,9 @@ const session = require("express-session");
 const pgSession = require("connect-pg-simple")(session);
 const passport = require("./authentication/passportConfig");
 require("dotenv").config();
+const homeRouter = require("./routes/homeRouter");
 const usersRouter = require("./routes/usersRouter");
-
-// just for showing users to troubleshoot
-async function getUsers() {
-    const { rows } = await pool.query("select * from users");
-    return rows;
-}
-getUsers().then((users) => console.log(users));
-// delete when done
+const messagesRouter = require("./routes/messagesRouter");
 
 const app = express();
 app.set("views", path.join(__dirname, "views"));
@@ -37,10 +31,14 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
+    res.locals.errorMessages = req.session.messages || [];
+    req.session.messages = [];
     next();
 });
 
-app.use("/", usersRouter);
+app.use("/", homeRouter);
+app.use("/user", usersRouter);
+app.use("/messages", messagesRouter);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);

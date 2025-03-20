@@ -67,9 +67,54 @@ async function giveUserMembership(id) {
     const SQL = sql`
     update users
     set member = true
-    where id = $1
-    returning *;
+    where id = $1;
     `;
+    await db.query(SQL, [id]);
+}
+
+async function giveUserAdmin(id) {
+    const SQL = sql`
+    update users
+    set "admin" = true
+    where id = $1;
+    `;
+    await db.query(SQL, [id]);
+}
+
+async function insertMessage(userid, title, text) {
+    const SQL = sql`
+    insert into messages
+        (userid, title, "text")
+        values (
+            $1, $2, $3
+        );
+    `;
+    await db.query(SQL, [userid, title, text]);
+}
+
+async function getMessages() {
+    const SQL = sql`
+    select
+        messages.id,
+        concat(firstname,' ',lastname) as author,
+        title,
+        "text",
+        created_at
+    from messages
+    left join users on users.id = messages.userid
+    order by created_at desc
+    ;`;
+
+    const { rows } = await db.query(SQL);
+    return rows;
+}
+
+async function deleteMessage(id) {
+    const SQL = sql`
+    delete from messages
+    where id = $1
+    ;`;
+
     await db.query(SQL, [id]);
 }
 
@@ -79,4 +124,8 @@ module.exports = {
     selectUser,
     selectUserWithId,
     giveUserMembership,
+    giveUserAdmin,
+    insertMessage,
+    getMessages,
+    deleteMessage,
 };

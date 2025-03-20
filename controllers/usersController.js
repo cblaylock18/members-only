@@ -40,6 +40,17 @@ const signUpValidator = [
         .withMessage("Password fields must match."),
 ];
 
+const logInValidator = [
+    body("username")
+        .trim()
+        .notEmpty()
+        .withMessage("Username/email is required.")
+        .isEmail()
+        .withMessage("Your username must be a valid email address.")
+        .normalizeEmail(),
+    body("password").isLength({ min: 1 }).withMessage("Password is required."),
+];
+
 const membershipValidator = [
     body("memberPassword")
         .notEmpty()
@@ -59,9 +70,24 @@ const membershipValidator = [
         }),
 ];
 
-function logInGet(req, res) {
-    res.render("index");
-}
+const adminValidator = [
+    body("adminPassword")
+        .notEmpty()
+        .withMessage(
+            "To become an admin the password field must be filled out."
+        )
+        .custom(async (value) => {
+            const match = await bcrypt.compare(
+                value,
+                process.env.ADMIN_PASSWORD
+            );
+            if (!match) {
+                throw new Error(
+                    "That's not the right password to become an admin!"
+                );
+            }
+        }),
+];
 
 function signUpGet(req, res) {
     res.render("sign-up-form");
@@ -69,27 +95,34 @@ function signUpGet(req, res) {
 
 const signUpPost = [
     signUpValidator,
-    asyncHandler(async (req, res) => {
+    asyncHandler(async (req, res, next) => {
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
             return res.status(400).render("sign-up-form", {
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
+                username: req.body.username,
                 errors: errors.array(),
             });
         }
 
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
         await db.insertUser(
             req.body.firstname,
             req.body.lastname,
             req.body.username,
-            hashedPassword,
-            req.body.member,
-            req.body.admin
+            hashedPassword
         );
-        res.redirect("/");
+
+        next();
+    }),
+
+    passport.authenticate("local", {
+        successRedirect: "/",
+        failureRedirect: "/",
+        failureMessage: true,
     }),
 ];
 
@@ -102,10 +135,24 @@ function logOutGet(req, res, next) {
     });
 }
 
-const logInPost = passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/",
-});
+const logInPost = [
+    logInValidator,
+    (req, res, next) => {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).render("index", {
+                errors: errors.array(),
+            });
+        }
+        next();
+    },
+    passport.authenticate("local", {
+        successRedirect: "/",
+        failureRedirect: "/",
+        failureMessage: true,
+    }),
+];
 
 function membershipGet(req, res) {
     res.render("membership-form");
@@ -113,7 +160,7 @@ function membershipGet(req, res) {
 
 const membershipPost = [
     membershipValidator,
-    asyncHandler(async function memberPost(req, res) {
+    asyncHandler(async (req, res) => {
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
@@ -127,12 +174,33 @@ const membershipPost = [
     }),
 ];
 
+function adminGet(req, res) {
+    res.render("admin-form");
+}
+
+const adminPost = [
+    adminValidator,
+    asyncHandler(async (req, res) => {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).render("admin-form", {
+                errors: errors.array(),
+            });
+        } else {
+            await db.giveUserAdmin(req.user.id);
+            res.redirect("/");
+        }
+    }),
+];
+
 module.exports = {
-    logInGet,
     signUpGet,
     signUpPost,
     logOutGet,
     logInPost,
     membershipGet,
     membershipPost,
+    adminGet,
+    adminPost,
 };

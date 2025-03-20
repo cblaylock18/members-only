@@ -11,15 +11,21 @@
             WELCOME BACK <%= currentUser.firstname + " " + currentUser.lastname
             %>
         </h1>
+        <a href="/messages/new-message">Create a new message</a>
         <% if (locals.currentUser.member) {%>
         <h2>Congrats on being a member!</h2>
         <% } else {%>
-        <a href="/membership-form">Become a Member Today!</a>
+        <a href="/user/membership-form">Become a Member Today!</a>
+        <%}%> <% if (locals.currentUser.admin) {%>
+        <h2>Congrats on being an Admin!</h2>
+        <% } else {%>
+        <a href="/user/admin-form">Become an Admin Today!</a>
         <%}%>
-        <a href="/log-out">LOG OUT</a>
+        <a href="/user/log-out">LOG OUT</a>
         <% } else { %>
-        <h1>please log in</h1>
-        <form action="/log-in" method="POST">
+        <h1>Please Log In</h1>
+        <%- include("partials/errors") %>
+        <form action="/user/log-in" method="POST">
             <label for="username">Username</label>
             <input
                 id="username"
@@ -31,7 +37,7 @@
             <input id="password" name="password" type="password" />
             <button type="submit">Log In</button>
         </form>
-        <%}%>
-        <a href="/sign-up">Or Sign Up</a>
+        <a href="/user/sign-up">Or Sign Up</a>
+        <%}%> <%- include("partials/messages") %>
     </body>
 </html>

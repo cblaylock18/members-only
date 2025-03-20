@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Become an Admin Today!</title>
+    </head>
+    <body>
+        <h1>
+            Type in the super duper secret admin only password to become an
+            admin! hint: adminsrock
+        </h1>
+        <%- include("partials/errors.ejs") %>
+        <form action="/user/admin-form" method="post">
+            <label for="adminPassword">Admin Password: </label>
+            <input
+                type="password"
+                name="adminPassword"
+                id="adminPassword"
+                required
+            />
+            <button type="submit">Become an Admin</button>
+        </form>
+    </body>
+</html>
