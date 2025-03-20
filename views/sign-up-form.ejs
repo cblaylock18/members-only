@@ -6,23 +6,15 @@
         <title>Sign Up</title>
     </head>
     <body>
+        <%- include("partials/errors.ejs") %>
         <form action="/sign-up" method="post">
             <label for="firstname">First Name: </label>
-            <input
-                type="text"
-                name="firstname"
-                id="firstname"
-                placeholder="first name"
-                required
-            />
+            <input type="text" name="firstname" id="firstname"
+            placeholder="first name" value="<%= locals.firstname ? firstname :
+            "" %>" required />
             <label for="lastname">Last Name: </label>
-            <input
-                type="text"
-                name="lastname"
-                id="lastname"
-                placeholder="last name"
-                required
-            />
+            <input type="text" name="lastname" id="lastname" placeholder="last
+            name" value="<%= locals.lastname ? lastname : "" %>" required />
             <label for="username">Username: </label>
             <input
                 type="email"

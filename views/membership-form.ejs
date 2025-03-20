@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Become a Member Today!</title>
+    </head>
+    <body>
+        <h1>
+            Type in the super secret members only password to become a member!
+            hint: membershiprocks
+        </h1>
+        <%- include("partials/errors.ejs") %>
+        <form action="/membership-form" method="post">
+            <label for="memberPassword">Member Password </label>
+            <input
+                type="password"
+                name="memberPassword"
+                id="memberPassword"
+                required
+            />
+            <button type="submit">Become a Member</button>
+        </form>
+    </body>
+</html>

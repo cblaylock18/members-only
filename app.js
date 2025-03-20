@@ -5,7 +5,7 @@ const session = require("express-session");
 const pgSession = require("connect-pg-simple")(session);
 const passport = require("./authentication/passportConfig");
 require("dotenv").config();
-const messagesRouter = require("./routes/messagesRouter");
+const usersRouter = require("./routes/usersRouter");
 
 // just for showing users to troubleshoot
 async function getUsers() {
@@ -40,7 +40,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use("/", messagesRouter);
+app.use("/", usersRouter);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);

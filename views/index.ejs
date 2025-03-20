@@ -11,6 +11,11 @@
             WELCOME BACK <%= currentUser.firstname + " " + currentUser.lastname
             %>
         </h1>
+        <% if (locals.currentUser.member) {%>
+        <h2>Congrats on being a member!</h2>
+        <% } else {%>
+        <a href="/membership-form">Become a Member Today!</a>
+        <%}%>
         <a href="/log-out">LOG OUT</a>
         <% } else { %>
         <h1>please log in</h1>
