@@ -6,7 +6,7 @@ const bcrypt = require("bcryptjs");
 passport.use(
     new LocalStrategy(async (username, password, done) => {
         try {
-            const user = await db.selectUser(username);
+            const user = await db.users.selectUser(username);
 
             if (!user) {
                 return done(null, false, {
@@ -31,7 +31,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
     try {
-        const user = await db.selectUserWithId(id);
+        const user = await db.users.selectUserWithId(id);
 
         done(null, user);
     } catch (err) {

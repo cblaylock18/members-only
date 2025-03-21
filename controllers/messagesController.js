@@ -30,14 +30,18 @@ const newMessagePost = [
             });
         }
 
-        await db.insertMessage(req.user.id, req.body.title, req.body.text);
+        await db.messages.insertMessage(
+            req.user.id,
+            req.body.title,
+            req.body.text
+        );
         res.redirect("/");
     }),
 ];
 
 async function deleteMessagePost(req, res) {
     const id = req.params.id;
-    await db.deleteMessage(id);
+    await db.messages.deleteMessage(id);
     res.redirect("/");
 }
 

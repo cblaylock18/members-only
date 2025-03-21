@@ -25,7 +25,7 @@ const signUpValidator = [
         .withMessage("Your username must be a valid email address.")
         .normalizeEmail()
         .custom(async (value) => {
-            const isFree = await db.isUsernameFreeQuery(value);
+            const isFree = await db.users.isUsernameFreeQuery(value);
             if (!isFree) {
                 throw new Error("Email already in use.");
             }
@@ -168,7 +168,7 @@ const membershipPost = [
                 errors: errors.array(),
             });
         } else {
-            await db.giveUserMembership(req.user.id);
+            await db.users.giveUserMembership(req.user.id);
             res.redirect("/");
         }
     }),
@@ -188,7 +188,7 @@ const adminPost = [
                 errors: errors.array(),
             });
         } else {
-            await db.giveUserAdmin(req.user.id);
+            await db.users.giveUserAdmin(req.user.id);
             res.redirect("/");
         }
     }),

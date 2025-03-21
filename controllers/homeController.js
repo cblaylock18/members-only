@@ -1,7 +1,7 @@
 const db = require("../db/queries");
 
 async function homeGet(req, res) {
-    const messages = await db.getMessages();
+    const messages = await db.messages.getMessages();
 
     res.render("index", { messages: messages });
 }
