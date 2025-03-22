@@ -28,6 +28,9 @@
     </article>
     <% }); %> <% } else if (locals.currentUser && (!locals.messages ||
     locals.messages.length === 0)) { %>
+    <a href="/messages/new-message" class="create-new-message"
+        >Create a new message</a
+    >
     <article>
         <h3>No messages yet! Be the first to post!</h3>
         <article>
