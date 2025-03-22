@@ -3,42 +3,51 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="/css/styles.css">
-        <title>Authentication Basics</title>
+        <link rel="stylesheet" href="/css/styles.css" />
+        <title>Members Only</title>
     </head>
     <body>
+        <h1>Members Only Blog</h1>
         <% if (locals.currentUser) {%>
-        <h1>
-            WELCOME BACK <%= currentUser.firstname + " " + currentUser.lastname
-            %>
-        </h1>
-        <a href="/messages/new-message">Create a new message</a>
-        <% if (locals.currentUser.member) {%>
-        <h2>Congrats on being a member!</h2>
-        <% } else {%>
-        <a href="/user/membership-form">Become a Member Today!</a>
-        <%}%> <% if (locals.currentUser.admin) {%>
-        <h2>Congrats on being an Admin!</h2>
-        <% } else {%>
-        <a href="/user/admin-form">Become an Admin Today!</a>
-        <%}%>
-        <a href="/user/log-out">LOG OUT</a>
+        <div class="links">
+            <h2>
+                Welcome back <%= currentUser.firstname + " " +
+                currentUser.lastname %>!
+            </h2>
+            <% if (locals.currentUser.member) {%>
+            <h3>Congrats on being a member!</h3>
+            <% } else {%>
+            <a href="/user/membership-form">Become a Member Today!</a>
+            <%}%> <% if (locals.currentUser.admin) {%>
+            <h3>Congrats on being an Admin!</h3>
+            <% } else {%>
+            <a href="/user/admin-form">Become an Admin Today!</a>
+            <%}%>
+            <a href="/user/log-out" class="log-out">Log Out</a>
+        </div>
         <% } else { %>
-        <h1>Please Log In</h1>
+        <h2>Please Log In</h2>
         <%- include("partials/errors") %>
         <form action="/user/log-in" method="POST">
-            <label for="username">Username</label>
+            <label for="username">Username (email you signed up with)</label>
             <input
                 id="username"
                 name="username"
-                placeholder="username"
-                type="text"
+                placeholder="your-email@example.com"
+                type="email"
+                required
             />
             <label for="password">Password</label>
-            <input id="password" name="password" type="password" />
+            <input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="password"
+                required
+            />
             <button type="submit">Log In</button>
         </form>
-        <a href="/user/sign-up">Or Sign Up</a>
+        <a href="/user/sign-up">Or Click Here to Sign Up!</a>
         <%}%> <%- include("partials/messages") %>
     </body>
 </html>

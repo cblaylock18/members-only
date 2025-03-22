@@ -7,6 +7,7 @@
         <title>Sign Up</title>
     </head>
     <body>
+        <h1>Sign up to see everyone's messages!</h1>
         <%- include("partials/errors.ejs") %>
         <form action="/user/sign-up" method="post">
             <label for="firstname">First Name: </label>
@@ -14,23 +15,31 @@
             placeholder="first name" value="<%= locals.firstname ? firstname :
             "" %>" required />
             <label for="lastname">Last Name: </label>
-            <input type="text" name="lastname" id="lastname" placeholder="last
-            name" value="<%= locals.lastname ? lastname : "" %>" required />
-            <label for="username">Username: </label>
+            <input type="text" name="lastname" id="lastname"
+            placeholder="<%="last name"%>" value="<%= locals.lastname ? lastname
+            : "" %>" required />
+            <label for="username">Email (will become your username): </label>
             <input
                 type="email"
                 name="username"
                 id="username"
-                placeholder="username"
+                placeholder="your-email@example.com"
                 required
             />
             <label for="password">Password: </label>
-            <input type="password" name="password" id="password" required />
+            <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="password"
+                required
+            />
             <label for="confirmpassword">Confirm Password: </label>
             <input
                 type="password"
                 name="confirmpassword"
                 id="confirmpassword"
+                placeholder="confirm password"
                 required
             />
             <button type="submit">Sign Up</button>

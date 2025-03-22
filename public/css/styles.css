@@ -1,0 +1,177 @@
+* {
+    font-family: inherit;
+}
+
+body {
+    margin: 0;
+    padding: 0.5rem;
+    background-color: #e4fde1;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    margin: 0;
+}
+
+h1 {
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+    font-size: 3rem;
+    text-align: left;
+    border-bottom: 1px dashed #4d854b;
+}
+
+form,
+article {
+    padding: 1rem;
+    margin: 0 0 1rem 0;
+    border: 1px solid #64838183;
+    border-radius: 10px;
+    box-shadow: 5px 5px 19px 0px #648381c5;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    font-size: 1.4rem;
+}
+
+.delete-form {
+    box-shadow: none;
+}
+
+h2,
+h3 {
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+label {
+    margin: 0 0 0.2rem 0;
+    padding: 0;
+    font-weight: bold;
+}
+
+input,
+textarea {
+    margin: 0 0 1rem 0;
+    padding: 0 0.2rem;
+    line-height: 1.8rem;
+    font-size: 1.4rem;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    max-width: 400px;
+}
+
+button {
+    background-color: #575761;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+    max-width: 250px;
+    transition: all 0.3s;
+}
+
+button:hover {
+    background-color: #37373f;
+}
+
+button:active {
+    background-color: #36363f;
+}
+
+a {
+    text-decoration: underline;
+    display: block;
+    color: #2f2f3d;
+    font-weight: bolder;
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+    text-underline-offset: 5px;
+    transition: all 0.3s ease;
+    transform-origin: left center;
+}
+
+a:hover {
+    color: #2929ad;
+}
+
+a:active {
+    transform: scale(0.98);
+}
+
+h4 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+main > h3 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+main > article:nth-child(2n) {
+    align-self: flex-end;
+}
+
+article {
+    background-color: #effdee;
+    width: 90%;
+}
+
+article > h4 {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed #4d854b;
+}
+
+article > p {
+    margin: 0 0 0.8rem 0;
+    padding: 0;
+}
+
+.hidden-statement {
+    margin-bottom: 0;
+    font-size: 1.3rem;
+    font-style: italic;
+}
+
+.links {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 4rem;
+    row-gap: 0;
+    border-bottom: 1px dashed #4d854b;
+}
+
+.links > h2 {
+    width: 100%;
+}
+
+.create-new-message {
+    width: 100%;
+}
+
+.links > h3 {
+    font-style: italic;
+    font-size: 1.4rem;
+}
+
+.log-out {
+    width: 100%;
+}
+
+textarea {
+}

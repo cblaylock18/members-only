@@ -109,7 +109,7 @@ const signUpPost = [
 
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-        await db.insertUser(
+        await db.users.insertUser(
             req.body.firstname,
             req.body.lastname,
             req.body.username,
