@@ -41,6 +41,14 @@ app.use("/", homeRouter);
 app.use("/user", usersRouter);
 app.use("/messages", messagesRouter);
 
+app.use("*", (req, res) => {
+    res.render("errorPage", {
+        title: "Page doesn't exist",
+        message:
+            "Uh-oh! Looks like this page doesn't exist. Click below to return Home.",
+    });
+});
+
 app.use((err, req, res, next) => {
     console.error(err.stack);
 

@@ -3,14 +3,15 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="/css/styles.css" />
         <title>Become a Member Today!</title>
     </head>
     <body>
         <h1>
             Type in the super secret members only password to become a member!
-            hint: membershiprocks
         </h1>
+        <h2>hint: membershiprocks</h2>
+        <a class="home-link" href="/">Return to Home</a>
         <%- include("partials/errors.ejs") %>
         <form action="/user/membership-form" method="post">
             <label for="memberPassword">Member Password: </label>
